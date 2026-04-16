@@ -4,14 +4,14 @@ import http from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { CopilotClient, approveAll } from "@github/copilot-sdk";
 
-const PORT = 3001;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3001;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.get("/health", (_req, res) => {
-  res.json({ status: "ok" });
+  res.json({ status: "ok", uptime: process.uptime() });
 });
 
 const server = http.createServer(app);
